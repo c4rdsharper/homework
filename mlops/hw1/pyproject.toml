@@ -1,0 +1,26 @@
+[tool.poetry]
+name = "mlops"
+version = "0.1.0"
+description = "ML pipeline with data validation and model metrics."
+authors = ["Your Name <you@example.com>"]
+readme = "README.md"
+packages = [{ include = "src" }]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+pandas = "~2.2"
+scikit-learn = "~1.5"
+dvc = "~3.50"
+great-expectations = "~0.18"
+pyyaml = "~6.0"
+pathspec = "<1.0.0"
+
+[tool.poetry.group.dev.dependencies]
+black = "^24.4"
+ruff = "^0.5.2"
+isort = "^5.13"
+pre-commit = "^3.7"
+
+[build-system]
+requires = ["poetry-core>=1.9.0"]
+build-backend = "poetry.core.masonry.api"

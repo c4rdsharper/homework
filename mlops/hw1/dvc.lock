@@ -1,0 +1,110 @@
+schema: '2.0'
+stages:
+  get_data:
+    cmd: python src/get_data.py
+    deps:
+    - path: params.yaml
+      hash: md5
+      md5: a05ed68461785424244d586b2aa183c0
+      size: 127
+    - path: src/get_data.py
+      hash: md5
+      md5: 7714975fc80e7613f73461ddf3026d26
+      size: 586
+    outs:
+    - path: data/raw/tips.csv
+      hash: md5
+      md5: 21a1749bc760e771c7a011b17e17d17b
+      size: 8188
+  validate_data:
+    cmd: python src/validate_data.py
+    deps:
+    - path: data/raw/tips.csv
+      hash: md5
+      md5: 21a1749bc760e771c7a011b17e17d17b
+      size: 8188
+    - path: src/validate_data.py
+      hash: md5
+      md5: 4407f1a46c46e78d120418fd81d817db
+      size: 4561
+    outs:
+    - path: reports/validation
+      hash: md5
+      md5: e4d30e25e759e449a371a11bd43a291f.dir
+      size: 2330
+      nfiles: 1
+  preprocess:
+    cmd: python src/preprocess.py
+    deps:
+    - path: data/raw/tips.csv
+      hash: md5
+      md5: 21a1749bc760e771c7a011b17e17d17b
+      size: 8188
+    - path: src/preprocess.py
+      hash: md5
+      md5: 03d81771a2d12a69c9a94beebc115c38
+      size: 390
+    outs:
+    - path: data/processed/dataset.csv
+      hash: md5
+      md5: bc8e6e714dbb45514d81ab3155f03ab9
+      size: 3610
+  train:
+    cmd: python src/train.py
+    deps:
+    - path: data/processed/dataset.csv
+      hash: md5
+      md5: bc8e6e714dbb45514d81ab3155f03ab9
+      size: 3610
+    - path: params.yaml
+      hash: md5
+      md5: a05ed68461785424244d586b2aa183c0
+      size: 127
+    - path: src/train.py
+      hash: md5
+      md5: 4c5e622a1bf6f87c0a6508a13e34ba7f
+      size: 809
+    outs:
+    - path: models/model.pkl
+      hash: md5
+      md5: e92ae663ced15e1e67dbf3a61e7dc7a4
+      size: 824
+  evaluate:
+    cmd: python src/evaluate.py
+    deps:
+    - path: data/processed/dataset.csv
+      hash: md5
+      md5: bc8e6e714dbb45514d81ab3155f03ab9
+      size: 3610
+    - path: models/model.pkl
+      hash: md5
+      md5: e92ae663ced15e1e67dbf3a61e7dc7a4
+      size: 824
+    - path: params.yaml
+      hash: md5
+      md5: a05ed68461785424244d586b2aa183c0
+      size: 127
+    - path: src/evaluate.py
+      hash: md5
+      md5: 5caa5329c58f0a50b1b0201d0bae56ec
+      size: 1079
+    outs:
+    - path: metrics/metrics.json
+      hash: md5
+      md5: dd8a16fa4d97cf18145d5e5163df769e
+      size: 54
+  validate_model:
+    cmd: python src/validate_model.py
+    deps:
+    - path: models/model.pkl
+      hash: md5
+      md5: e92ae663ced15e1e67dbf3a61e7dc7a4
+      size: 824
+    - path: params.yaml
+      hash: md5
+      md5: a05ed68461785424244d586b2aa183c0
+      size: 127
+    - path: src/validate_model.py
+      hash: md5
+      md5: c275cdc4a71ef786d19cbd03960c0300
+      size: 1734
